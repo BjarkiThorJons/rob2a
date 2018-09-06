@@ -1,9 +1,9 @@
 Port
-	ANALOG 1-3 line sensor vinstri til hægri
-	ANALOG 4 Potentiometer
-	ANALOG 5 Light sensor
+	ANALOG 2-4 line sensor vinstri til hÃ¦gri
+	ANALOG 1 Potentiometer
+	ANALOG 8 Light sensor
 	
 	DIGITAL 1,2 Quadrature Shaft Encoders vinstri
-	DIGITAL 11,12  Quadrature Shaft Encoders hægri
+	DIGITAL 11,12  Quadrature Shaft Encoders hÃ¦gri
 	DIGITAL 8,9 Ulra Sonic Rangefinder
 	
