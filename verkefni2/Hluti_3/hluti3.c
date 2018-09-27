@@ -17,8 +17,16 @@ void drive_forward(int distance, int power, int resistance){
   	}
 }
 
-void turn(){
-	//code comming soon
+void turn_right(){
+	SensorValue[rightEncoder] = 0;
+  SensorValue[leftEncoder] = 0;
+  //ummal 27.7 robot um dekk 10.2
+	int turn_degrees=244;
+	while(SensorValue[rightEncoder] < turn_degrees)
+  	{
+    	motor[rightMotor] = -67;		  // Motor on port2 is run at full (-127) power reverse
+			motor[leftMotor]  = 67;			// Motor on port3 is run at full (127) power forward
+  	}
 }
 
 void pause(){
@@ -31,18 +39,11 @@ void pause(){
 task main()
 {
 	wait1Msec(2000);
-	int distance = 50
-	writeDebugStreamLine("%d",distance);
-	drive_forward(distance,power,12);
+	int distance = 30;
+	//drive_forward(distance,power,resistance);
 	pause();
+	turn_right();
 	pause();
-
-	// Turn Right at full power for 0.75 seconds
-	motor[rightMotor] = -127;		  // Motor on port2 is run at full (-127) power reverse
-	motor[leftMotor]  = 127;			// Motor on port3 is run at full (127) power forward
-
-	// Turn Left at full power for 0.75 seconds
-	motor[rightMotor] = 127;			// Motor on port2 is run at full (127) power forward
-	motor[leftMotor]  = -127;		  // Motor on port3 is run at full (-127) power reverse
+	drive_forward(distance,power,resistance);
 }
 //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
