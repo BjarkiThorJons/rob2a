@@ -4,10 +4,10 @@
 #pragma config(Motor,  port3,           leftMotor,     tmotorServoContinuousRotation, openLoop, reversed)
 
 /*----------------------------------------------------------------------------------------------------*\
-|*                                   - Verkefni 2 hluti 2 -                                         	*|
-|*                                  ROBOTC on VEX 2.0 CORTEX                                      		*|
+|*                                   - Verkefni 2 hluti 2 -                                           *|
+|*                                  ROBOTC on VEX 2.0 CORTEX                                          *|
 |*                                                                                                    *|
-|*  Thetta forrit laetur robotinn keyra 0,5m afram med encoderunum og svo bakkar hann 0,5m. Svo er 		*|
+|*  Thetta forrit laetur robotinn keyra 0,5m afram med encoderunum og svo bakkar hann 0,5m. Svo er    *|
 |*  thetta endurtekid og vegalengdin haekud um 0,5m thar til robotin keyrir 2,5m.                     *|
 |*                                                                                                    *|
 \*----------------------------------------------------------------------------------------------------*/
