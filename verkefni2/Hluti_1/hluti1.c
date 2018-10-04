@@ -2,53 +2,38 @@
 #pragma config(Motor,  port3,           leftMotor,     tmotorServoContinuousRotation, openLoop, reversed)
 
 /*----------------------------------------------------------------------------------------------------*\
-|*                                         - Moving Forward -                                         *|
-|*                                  ROBOTC on VEX 2.0 CORTEX                                      *|
-|*                                                                                                        *|
-|*  This program instructs your robot to move forward at full power for three seconds.  There is a    *|
-|*  two second pause at the beginning of the program.                                                 *|
+|*                                   - Verkefni 2 hluti 1 -                                         	*|
+|*                                  ROBOTC on VEX 2.0 CORTEX                                      		*|
 |*                                                                                                    *|
-|*                                        ROBOT CONFIGURATION                                         *|
-|*    NOTES:                                                                                          *|
-|*    1)  Reversing 'rightMotor' (port 2) in the "Motors and Sensors Setup" is needed with the        *|
-|*        "Squarebot" mode, but may not be needed for all robot configurations.                       *|
-|*    2)  Power levels that can be assigned to a motor port range from -127 (full reverse) to         *|
-|*        127 (full forward).                                                                         *|
-\*-----------------------------------------------------------------------------------------------4246-*/
+|*  Thetta forrit laetur robotinn keyra 0,5m afram med tima og svo bakkar hann 0,5m. Svo er thetta		*|
+|*  endurtekid og vegalengdin haekud um 0,5m thar til robotin keyrir 2,5m.                            *|
+|*                                                                                                    *|
+\*----------------------------------------------------------------------------------------------------*/
 
 int power=127;
-int drive_time=950;
+int drive_time=3000;
 
 
 void drive_forward(int drive_time, int counter){
 	motor[rightMotor] = power;
 	motor[leftMotor]  = power;
-	wait1Msec(drive_time*counter);;
+	wait1Msec(drive_time*counter);
 }
 
 void drive_reverse(int drive_time, int counter){
 	motor[rightMotor] = -power;
 	motor[leftMotor]  = -power;
 	wait1Msec(drive_time*counter);
-
 }
-
-void pause(){
-	motor[rightMotor] = 0;
-	motor[leftMotor]  = 0;
-	wait1Msec(500);
-}
-
 
 //+++++++++++++++++++++++++++++++++++++++++++++| MAIN |+++++++++++++++++++++++++++++++++++++++++++++++
-task main()
-{
+task main(){
 	wait1Msec(2000);
-	for(int i=1;i<5;i++){
-		drive_forward(drive_time,i);
-		pause();
-		drive_reverse(drive_time,i);
-		pause();
-	}
+	//drive_forward(970,1);
+	//drive_reverse(970,1);
+	for(int i=1;1<5;i++){
+		drive_forward(970,i);
+		drive_reverse(970,i);
+		}
 }
 //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
