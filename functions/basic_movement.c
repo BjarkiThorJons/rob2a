@@ -8,6 +8,11 @@
 |*                                                                                                    *|
 |*
 \*----------------------------------------------------------------------------------------------------*/
+//ummal 27.7 robot um dekk 10.2
+//(27.7/10,2)*deg
+const double diameter=27.6;
+const double diameter_wheel=10.2;
+
 
 void pause(){
 	motor[rightMotor] = 0;
@@ -31,16 +36,27 @@ void drive(int distance, int power, int resistance, bool direction){
 void turn(int deg,bool direction){
 	SensorValue[rightEncoder] = 0;
   SensorValue[leftEncoder] = 0;
-  //ummal 27.7 robot um dekk 10.2
-  //(27.7/10,2)*deg
-  double diameter=27.6;
-  double diameter_wheel=10.2;
   double turn_degrees=(diameter/diameter_wheel)*deg;
 	int di = (direction) ? (1) : (-1);
 	while(SensorValue[rightEncoder]*di < turn_degrees)
   	{
-    	motor[rightMotor] = -67*di;
-			motor[leftMotor]  = 67*di;
+    	motor[rightMotor] = -127*di;
+			motor[leftMotor]  = 127*di;
   	}
   pause();
 }
+
+/*
+task holdArm()
+{
+	int initial = SensorValue[potentiometer];
+
+	while(true)
+	{
+		while(SensorValue(potentiometer) == 0)
+			motor[armMotor] = 30;
+
+		motor[armMotor] = 0;
+	}
+}
+*/
