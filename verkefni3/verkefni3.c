@@ -10,10 +10,8 @@
 \*----------------------------------------------------------------------------------------------------*/
 
 //+++++++++++++++++++++++++++++++++++++++++++++| MAIN |+++++++++++++++++++++++++++++++++++++++++++++++
-
-task main ()
-{
-  while(1 == 1)
+task idk(){
+	while(1 == 1)
   {
     motor[leftMotor]  = (vexRT[Ch3] + vexRT[Ch4])/2;
     motor[rightMotor] = (vexRT[Ch3] - vexRT[Ch4])/2;
@@ -31,10 +29,33 @@ task main ()
 		{
 			motor[clawMotor] = 0;
 		}
+  }
+}
+
+
+task start(){
+	while(1==1){
+		if(vexRT[Btn7D] == 1)
+		{
+			StartTask(idk);
+			//StartTask(main);
+		}
 		if(vexRT[Btn8D] == 1)
 		{
-			StopallTasks();
+			StopTask(idk);
+			motor[leftMotor] = 0;
+			motor[rightMotor] = 0;
+			motor[armMotor] = 0;
+			//StartTask(main);
 		}
-  }
+	}
+}
+
+
+task main ()
+{
+	StartTask(start);
+	while(1==1){
+		}
 }
 //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
