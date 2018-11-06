@@ -9,6 +9,8 @@
 |*                          Notum fjarstyringu til ad stjorna robotnum                                *|
 \*----------------------------------------------------------------------------------------------------*/
 
+const int power=127;
+
 //+++++++++++++++++++++++++++++++++++++++++++++| MAIN |+++++++++++++++++++++++++++++++++++++++++++++++
 task idk(){
 	while(1 == 1)
@@ -19,11 +21,11 @@ task idk(){
 
     if(vexRT[Btn6U] == 1)
 		{
-			motor[clawMotor] = 127;
+			motor[clawMotor] = power;
 		}
 		else if(vexRT[Btn5U] == 1)
 		{
-			motor[clawMotor] = -127;
+			motor[clawMotor] = -power;
 		}
 		else
 		{
