@@ -50,7 +50,7 @@ task main()
 {
 	wait1Msec(2000);
 	int distance = 0
-	for(int i=1;i<5;i++){
+	for(int i=1;i<6;i++){
 		distance+=distance_change;
 		writeDebugStreamLine("%d",distance);
 		drive_forward(distance,power,12);

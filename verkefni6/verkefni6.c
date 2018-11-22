@@ -21,21 +21,30 @@
 \*----------------------------------------------------------------------------------------------------*/
 
 #include "../functions/basic_movement.c"
-const double resistance=0;
+const float resistance=0;
 
 //+++++++++++++++++++++++++++++++++++++++++++++| MAIN |+++++++++++++++++++++++++++++++++++++++++++++++
+task main_task(){
+		int distance = 200;
+		follow_line_dist(distance,resistance,true);
+		search_line(true);
+		follow_line_dist(50,resistance,true);
+		arm(3700,-1);
+		claw(-1);
+		wait10Msec(500);
+		claw(1);
+		arm(1700,1);
+	//1700 3700
+		turn(20,true);
+		search_line(true);
+	 	follow_line_dist(250,resistance,true);
+}
+#include "../functions/tasks.c"
 task main()
 {
-		arm(1700,1);
-	//wait1Msec(2000);
-	//int distance = 200;
-	//follow_line_dist(distance,resistance,true);
-	//search_line(true);
-	//follow_line_dist(50,resistance,true);
-	//1700 3700
-	//turn(20,true);
-	//search_line(true);
-	//follow_line_dist(250,resistance,true);
+		StartTask(start);
+		while(1==1){
+		}
 
 }
 //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++

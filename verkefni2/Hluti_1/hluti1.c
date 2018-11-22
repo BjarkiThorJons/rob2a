@@ -37,7 +37,7 @@ void pause(){
 task main()
 {
 	wait1Msec(2000);
-	for(int i=1;i<5;i++){
+	for(int i=1;i<6;i++){
 		drive_forward(drive_time,i);
 		pause();
 		drive_reverse(drive_time,i);

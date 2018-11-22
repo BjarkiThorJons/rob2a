@@ -10,9 +10,10 @@
 \*----------------------------------------------------------------------------------------------------*/
 //ummal 27.7 robot um dekk 10.2
 //(27.7/10,2)*deg
-const double diameter=27.6;
-const double diameter_wheel=10.2;
-
+const float diameter=27.6;
+const float diameter_wheel=10.2;
+const int threshold = 1500;
+const int power=127;
 
 void pause(){
 	motor[rightMotor] = 0;
@@ -36,7 +37,7 @@ void drive(int distance, int power, int resistance, bool direction){
 void turn(int deg,bool direction){
 	SensorValue[rightEncoder] = 0;
   SensorValue[leftEncoder] = 0;
-  double turn_degrees=(diameter/diameter_wheel)*deg;
+  float turn_degrees=(diameter/diameter_wheel)*deg;
 	int di = (direction) ? (1) : (-1);
 	while(SensorValue[rightEncoder]*di < turn_degrees)
   	{
@@ -45,18 +46,95 @@ void turn(int deg,bool direction){
   	}
   pause();
 }
+void follow_line(){
+	if(SensorValue(lineFollowerRIGHT) > threshold)
+    {
+      // counter-steer right:
+      motor[leftMotor]  = 50;
+      motor[rightMotor] = -50;
+    }
+    // CENTER sensor sees dark:
+    if(SensorValue(lineFollowerCENTER) > threshold)
+    {
+      // go straight
+      motor[leftMotor]  = 30;
+      motor[rightMotor] = 30;
+    }
+    // LEFT sensor sees dark:
+    if(SensorValue(lineFollowerLEFT) > threshold)
+    {
+      // counter-steer left:
+      motor[leftMotor]  = -50;
+      motor[rightMotor] = 50;
+  	}
+}
 
-/*
-task holdArm()
+void follow_line_dist(int distance, float resistance, bool direction){
+	SensorValue[rightEncoder] = 0;
+  SensorValue[leftEncoder] = 0;
+	double real_dist = (360/32)*(distance-resistance);
+	int di = (direction) ? (1) : (-1);
+	while(SensorValue[rightEncoder]*di < real_dist){
+		if(SensorValue(lineFollowerRIGHT) > threshold)
+	    {
+	      // counter-steer right:
+	      motor[leftMotor]  = 50;
+	      motor[rightMotor] = -50;
+	    }
+	    // CENTER sensor sees dark:
+	    if(SensorValue(lineFollowerCENTER) > threshold)
+	    {
+	      // go straight
+	      motor[leftMotor]  = 30;
+	      motor[rightMotor] = 30;
+	    }
+	    // LEFT sensor sees dark:
+	    if(SensorValue(lineFollowerLEFT) > threshold)
+	    {
+	      // counter-steer left:
+	      motor[leftMotor]  = -50;
+	      motor[rightMotor] = 50;
+	  	}
+	  }
+	  pause();
+}
+void search_line(bool direction){
+	int di = (direction) ? (1) : (-1);
+	while(SensorValue(lineFollowerRIGHT) < threshold && SensorValue(lineFollowerCENTER) < threshold && SensorValue(lineFollowerLEFT) < threshold){
+			motor[rightMotor] = -40*di;
+			motor[leftMotor]  = 40*di;
+	}
+}
+
+void arm(int arm_num, int num){
+		while(SensorValue[potentiometer]>10+arm_num && SensorValue[potentiometer]>arm_num-10){
+			motor[port7] = 127*num;
+		}
+		motor[port7]=0;
+	if (num == -1){
+		while(SensorValue[potentiometer]<10+arm_num && SensorValue[potentiometer]<arm_num-10){
+			motor[port7] = 127*num;
+		}
+			motor[port7] = 127;
+			wait1Msec(20);
+			motor[port7]=0;
+	}
+}
+
+void claw(int claw_num){
+			motor[clawMotor] = 127*claw_num;
+			wait1Msec(20)
+}
+
+/*task holdArm()
 {
 	int initial = SensorValue[potentiometer];
 
 	while(true)
 	{
 		while(SensorValue(potentiometer) == 0)
-			motor[armMotor] = 30;
+			motor[armMotor] = 50;
 
 		motor[armMotor] = 0;
 	}
-}
-*/
+}*/
