@@ -24,6 +24,8 @@
 const float resistance=0;
 
 //+++++++++++++++++++++++++++++++++++++++++++++| MAIN |+++++++++++++++++++++++++++++++++++++++++++++++
+//int distance_array = [200,]
+//bool direction_array = [true,]
 task main_task(){
 		int distance = 200;
 		follow_line_dist(distance,resistance,true);
@@ -33,11 +35,19 @@ task main_task(){
 		claw(-1);
 		wait10Msec(500);
 		claw(1);
+		wait10Msec(100);
 		arm(1700,1);
 	//1700 3700
-		turn(20,true);
 		search_line(true);
-	 	follow_line_dist(250,resistance,true);
+		follow_line_dist(11,resistance,true);
+		search_line(false);
+	 	follow_line_dist(distance,resistance,true);
+	 	search_line(true);
+	 	follow_line_dist(25,resistance,true);
+	 	arm(2500,-1);
+	 	wait10Msec(100);
+	 	claw(-1);
+
 }
 #include "../functions/tasks.c"
 task main()
