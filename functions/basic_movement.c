@@ -41,8 +41,8 @@ void turn(int deg,bool direction){
 	int di = (direction) ? (1) : (-1);
 	while(SensorValue[rightEncoder]*di < turn_degrees)
   	{
-    	motor[rightMotor] = -127*di;
-			motor[leftMotor]  = 127*di;
+    	motor[rightMotor] = -60*di;
+			motor[leftMotor]  = 60*di;
   	}
   pause();
 }
@@ -72,9 +72,9 @@ void follow_line(){
 void follow_line_dist(int distance, float resistance, bool direction){
 	SensorValue[rightEncoder] = 0;
   SensorValue[leftEncoder] = 0;
-	double real_dist = (360/32)*(distance-resistance);
+	float real_dist = (360/32)*(distance-resistance);
 	int di = (direction) ? (1) : (-1);
-	while(SensorValue[rightEncoder]*di < real_dist){
+	while((SensorValue[rightEncoder]+SensorValue[leftEncoder]*-1)/2*di < real_dist){
 		if(SensorValue(lineFollowerRIGHT) > threshold)
 	    {
 	      // counter-steer right:
@@ -100,10 +100,12 @@ void follow_line_dist(int distance, float resistance, bool direction){
 }
 void search_line(bool direction){
 	int di = (direction) ? (1) : (-1);
+	turn(20,direction);
 	while(SensorValue(lineFollowerRIGHT) < threshold && SensorValue(lineFollowerCENTER) < threshold && SensorValue(lineFollowerLEFT) < threshold){
-			motor[rightMotor] = -40*di;
-			motor[leftMotor]  = 40*di;
+			motor[rightMotor] = -50*di;
+			motor[leftMotor]  = 50*di;
 	}
+	 pause();
 }
 
 void arm(int arm_num, int num){
@@ -122,8 +124,16 @@ void arm(int arm_num, int num){
 }
 
 void claw(int claw_num){
+	if(claw_num == -1){
 			motor[clawMotor] = 127*claw_num;
-			wait1Msec(20)
+			wait1Msec(400);
+			motor[clawMotor] = 0;
+	}
+	else{
+			motor[clawMotor] = 127*claw_num;
+			wait1Msec(100);
+			motor[clawMotor] = 0;
+	}
 }
 
 /*task holdArm()
